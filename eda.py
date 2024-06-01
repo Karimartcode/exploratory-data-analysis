@@ -14,3 +14,18 @@ def basic_info(df):
         "dtypes": df.dtypes.to_dict(),
         "memory_mb": df.memory_usage(deep=True).sum() / 1024**2
     }
+
+
+def describe_numeric(df):
+    return df.describe()
+
+
+def describe_categorical(df):
+    cat_cols = df.select_dtypes(include=['object']).columns
+    summary = {}
+    for col in cat_cols:
+        summary[col] = {
+            "unique": df[col].nunique(),
+            "top_values": df[col].value_counts().head(5).to_dict()
+        }
+    return summary
