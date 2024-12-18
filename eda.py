@@ -35,3 +35,8 @@ def missing_data(df):
     missing = df.isnull().sum()
     pct = df.isnull().sum() / len(df) * 100
     return pd.DataFrame({"count": missing, "percent": pct}).sort_values("percent", ascending=False)
+
+
+def correlation_matrix(df):
+    numeric = df.select_dtypes(include=[np.number])
+    return numeric.corr()
