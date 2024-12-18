@@ -29,3 +29,9 @@ def describe_categorical(df):
             "top_values": df[col].value_counts().head(5).to_dict()
         }
     return summary
+
+
+def missing_data(df):
+    missing = df.isnull().sum()
+    pct = df.isnull().sum() / len(df) * 100
+    return pd.DataFrame({"count": missing, "percent": pct}).sort_values("percent", ascending=False)
