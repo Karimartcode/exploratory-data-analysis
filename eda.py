@@ -40,3 +40,9 @@ def missing_data(df):
 def correlation_matrix(df):
     numeric = df.select_dtypes(include=[np.number])
     return numeric.corr()
+
+
+def group_analysis(df, group_col, agg_col, funcs=None):
+    if funcs is None:
+        funcs = ['mean', 'count', 'std', 'min', 'max']
+    return df.groupby(group_col)[agg_col].agg(funcs)
