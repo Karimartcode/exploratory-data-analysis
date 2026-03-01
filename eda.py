@@ -46,3 +46,11 @@ def group_analysis(df, group_col, agg_col, funcs=None):
     if funcs is None:
         funcs = ['mean', 'count', 'std', 'min', 'max']
     return df.groupby(group_col)[agg_col].agg(funcs)
+
+
+def detect_outliers(df, column):
+    q1 = df[column].quantile(0.25)
+    q3 = df[column].quantile(0.75)
+    iqr = q3 - q1
+    outliers = df[(df[column] < q1 - 1.5 * iqr) | (df[column] > q3 + 1.5 * iqr)]
+    return outliers
